@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="my-5 pt-lg-5">
+  <p class="text-center">Machine learning project</p>
+  <h2 class="text-center">Weed Detection</h2>
+  <p class="text-primary fw-semibold text-center">{{y_pred}}</p>
+  <p class="text-primary fw-semibold text-center">{{y_pred}}</p>
+  <form action="prediction">
+    {% csrf_token %}
+
+    <div class="mb-3 w-75 mx-auto">
+      <label for="formFileMultiple" class="form-label fs-5">Enter Picture</label>
+      <input class="form-control" name="upload_image" type="file" id="formFileMultiple" multiple>
+
+      <div class="button-me submit mt-3">
+        <button class="button custom-btn" type="submit">Submit</button>
+      </div>
+    </div>
+  </form>
+  
+ 
+</section>
+
+
+
+
+    <script src="{% static 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+
+    {% endblock content %}

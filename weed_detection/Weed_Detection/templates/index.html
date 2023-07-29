@@ -1,0 +1,143 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    
+   
+
+    <section>
+        <div class="container my-5">
+            <div class="row">
+              <div class="col-md-8">
+                <h1>Welcome to <span style="color: #068FFF;">Weed Detection</span></h1>
+                <p style="text-align: justify;">Welcome to our groundbreaking weed detection website powered by deep learning technology. Unwanted plants known as weeds compete with crops for nutrients, sunshine, and water, reducing agricultural output and driving up expenses for farmers. Herbicides or physical effort have traditionally been used to eradicate weeds. By leveraging advanced algorithms and neural networks, we offer an unparalleled solution for accurately identifying various types of weeds. Whether you're a gardener, farmer, or outdoor enthusiast, our platform provides fast and reliable results, empowering you with the knowledge needed to effectively manage and eradicate weeds. Say goodbye to uncertainty and join us in revolutionizing weed detection through the power of deep learning.</p>
+
+                <div class="button-me">
+                  <a href="{% url 'prediction' %}" class="button custom-btn">Predection</a>
+              </div>
+              </div>
+              <div class="col-md-4 text-center">
+                <img class="rounded-3 img-fluid" src="{% static 'Image/hero.jpg'%}" alt="">
+              </div>
+            </div>
+          </div>
+    </section>
+
+
+
+
+    <section>
+        <div class="owl-carousel owl-theme">
+            <div class="item">
+              <img src="{%static 'Image/image-1.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-2.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-3.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-4.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-5.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-6.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-7.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-8.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-9.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-10.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-11.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+            <div class="item">
+              <img src="{%static 'Image/image-12.jpg'%}" class="rounded-4 shadow-sm" style="height: 400px;" alt="">
+            </div>
+         
+
+        </div>
+    </section>
+
+
+
+    <section class="my-4">
+        <h2 class="fs-3 text-center fw-semibold mt-5 mb-4">Testimonials</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+              <div class="card h-100">
+               
+                <div class="card-body">
+                    <img class="comma" src="{% static 'Image/comma-1.png'%}" alt="">
+                  <p class="card-text">Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90's microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.</p>
+                 
+
+                  <div class="d-flex align-items-center">
+                    <img class="testi-image" src="{% static 'Image/logo.png'%}" alt="">
+                    <div class="ms-2 pt-3">
+                        <h3>Razan Sarker Santa</h3>
+                        <p>Web Developer</p>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <img class="comma" src="{% static 'Image/comma-2.png'%}" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                 
+                  <div class="card-body">
+                      <img class="comma" src="{% static 'Image/comma-1.png'%}" alt="">
+                    <p class="card-text">Synth chartreuse iPhone lomo cray raw denim brunch everyday carry neutra before they sold out fixie 90's microdosing. Tacos pinterest fanny pack venmo, post-ironic heirloom try-hard pabst authentic iceland.</p>
+                   
+  
+                    <div class="d-flex align-items-center">
+                      <img class="testi-image" src="{% static 'Image/logo.png'%}" alt="">
+                      <div class="ms-2 pt-3">
+                          <h3>Arif Hosain</h3>
+                          <p>Machine learning engineer</p>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <img class="comma" src="{% static 'Image/comma-2.png'%}" alt="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+          </div>
+    </section>
+
+    <script>
+      $('.owl-carousel').owlCarousel({
+  loop:true,
+  margin:10,
+  nav:true,
+  responsive:{
+      0:{
+          items:1
+      },
+      600:{
+          items:2
+      },
+      1000:{
+          items:3
+      }
+  }
+})
+  </script>
+
+{% endblock content %}

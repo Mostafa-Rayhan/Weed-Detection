@@ -1,0 +1,59 @@
+
+section{
+    max-width: 1440px;
+    margin: auto;
+}
+
+header{
+    background-color: #DDDDDD;
+}
+
+.logo{
+	width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.comma{
+    height: 40px;
+    width: 40px;
+}
+.testi-image{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.button-me{
+    display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.custom-btn{
+	text-decoration: none;
+	font-family: sans-serif;
+	font-weight: 600;
+	font-size: 1em;
+	padding: 0.75em 2em;
+	color: #068FFF;
+	border: 0.15em solid #068FFF;
+	border-radius: 30px;
+	
+}
+
+.submit{
+	justify-content: left;
+}
+
+.divider{
+	display: flex;
+	justify-content: center;
+	margin-bottom: 4px;
+}
+
+.dividers{
+	border: 3px solid #068FFF;
+	width: 50px;
+	border-radius: 3px;
+}
