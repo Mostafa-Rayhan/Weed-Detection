@@ -7,7 +7,7 @@ from detection import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('detection.urls'))
+    path('', include(('detection.urls','detection'), namespace = 'detection'))
 ]
 
 if settings.DEBUG:

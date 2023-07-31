@@ -14,35 +14,46 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
+from joblib import Parallel, delayed
+import joblib
+
 IMAGE_SIZE = 256
 BATCH_SIZE = 42
 CHANNELS = 3
 
 dataset = tf.keras.preprocessing.image_dataset_from_directory(
-    "/content/drive/MyDrive/Thesis/Data",
+    "Weed_Detection\savedModels",
     seed=123,
     shuffle=True,
     image_size =(IMAGE_SIZE,IMAGE_SIZE),
     batch_size =BATCH_SIZE
 )
 
+# dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
+#     "./given/",
+#     seed=123,
+#     shuffle=True,
+#     image_size =(IMAGE_SIZE,IMAGE_SIZE),
+#     batch_size =BATCH_SIZE
+# )
+
 class_names =dataset.class_names
 class_names
 
-len(dataset)
+# len(dataset)
 
-for image_batch, labels_batch in dataset.take(1):
-    print(image_batch.shape)
-    print(labels_batch.numpy())
+# for image_batch, labels_batch in dataset.take(1):
+#     print(image_batch.shape)
+#     print(labels_batch.numpy())
 
-plt.figure(figsize=(10,10))
-for image_batch, labels_batch in dataset.take(1):
-    for i in range(4):
-        ax = plt.subplot(2,2,i+1)
+# plt.figure(figsize=(10,10))
+# for image_batch, labels_batch in dataset.take(1):
+#     for i in range(4):
+#         ax = plt.subplot(2,2,i+1)
 
-        plt.imshow(image_batch[i].numpy().astype("uint8"))
-        plt.title(class_names[labels_batch[i]])
-        plt.axis("off")
+#         plt.imshow(image_batch[i].numpy().astype("uint8"))
+#         plt.title(class_names[labels_batch[i]])
+#         plt.axis("off")
 
 def get_dataset(ds ,train_split=0.8,val_split=0.1 , test_split=0.1,shuffle=True, shuffle_size =1000):
   assert(train_split+val_split+test_split)==1
@@ -58,15 +69,51 @@ def get_dataset(ds ,train_split=0.8,val_split=0.1 , test_split=0.1,shuffle=True,
   test_ds = ds.skip(train_size).skip(val_size)
 
   return train_ds, val_ds, test_ds
-  train_ds, val_ds, test_ds = get_dataset(dataset)
 
 train_ds, val_ds, test_ds = get_dataset(dataset)
+
+
+def get_dataset2(ds ,train_split=0.0,val_split=0.0 , test_split=1.0,shuffle=True, shuffle_size =1000):
+  assert(train_split+val_split+test_split)==1
+  ds_size = len(ds)
+  if shuffle:
+    ds = ds.shuffle(shuffle_size,seed=12)
+
+  train_size = int(train_split*ds_size)
+  val_size = int (val_split*ds_size)
+
+  train_ds = ds.take(train_size)
+  val_ds = ds.skip(train_size).take(val_size)
+  test_ds = ds.skip(train_size).skip(val_size)
+
+  return test_ds
+
 
 len(train_ds)
 
 len(val_ds)
 
 len(test_ds)
+
+
+def data_prepro():
+  
+  dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
+    "Weed_Detection\given",
+    seed=1,
+    shuffle=True,
+    image_size =(IMAGE_SIZE,IMAGE_SIZE),
+    batch_size =BATCH_SIZE
+    )
+  
+  test_ds = get_dataset2(dataset_given)
+
+  return test_ds
+
+test_ds = data_prepro()
+
+
+
 
 train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size =tf.data.AUTOTUNE)
 test_ds = test_ds.cache().shuffle(1000).prefetch(buffer_size =tf.data.AUTOTUNE)
@@ -134,25 +181,28 @@ history4 = res.fit(
     train_ds,
     batch_size =BATCH_SIZE,
     validation_data=val_ds,
-    epochs=50
+    epochs=1
 )
 
-scores =res.evaluate(test_ds)
+res.save("res_model.h5")
 
-plt.figure(figsize=(10,10))
-plt.plot(history4.history['loss'], label='train loss')
-plt.plot(history4.history['val_loss'], label='val loss')
-plt.legend()
-plt.show()
 
-plt.figure(figsize=(10,10))
-plt.plot(history4.history['accuracy'], label='train acc')
-plt.plot(history4.history['val_accuracy'], label='val acc')
-plt.legend()
-plt.show()
+# joblib.dump(res, 'res_model.pkl')
 
-from google.colab import drive
-drive.mount('/content/drive')
+# scores =res.evaluate(test_ds)
+
+# plt.figure(figsize=(10,10))
+# plt.plot(history4.history['loss'], label='train loss')
+# plt.plot(history4.history['val_loss'], label='val loss')
+# plt.legend()
+# plt.show()
+
+# plt.figure(figsize=(10,10))
+# plt.plot(history4.history['accuracy'], label='train acc')
+# plt.plot(history4.history['val_accuracy'], label='val acc')
+# plt.legend()
+# plt.show()
+
 
 def predict (res, img):
     img_array2 = tf.keras.preprocessing.image.img_to_array(images2[i].numpy())
@@ -165,12 +215,14 @@ def predict (res, img):
 plt.figure(figsize=(15, 15))
 for images2, labels2 in test_ds.take(1):
 
-  for i in range(4):
+  for i in range(1):
 
-    ax = plt.subplot(2, 2, i + 1)
+    ax = plt.subplot(1, 1, i + 1)
     plt.imshow(images2[i].numpy().astype("uint8"))
 
     predicted_class2, confidence2= predict(res, images2[i].numpy())
     actual_class2 = class_names[labels2[i]]
+    print(actual_class2)
+    print(predicted_class2)
     plt.title(f"Actual: {actual_class2},\n Predicted: {predicted_class2}.\n Confidence: {confidence2}%")
     plt.axis("off")

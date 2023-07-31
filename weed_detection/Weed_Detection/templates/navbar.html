@@ -4,7 +4,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
           <div>
-            <a class="navbar-brand" href="{% url 'index' %}.html">
+            <a class="navbar-brand" href="{% url 'detection:index' %}.html">
                 <img src="{% static 'Image/logo.png'%}" class="logo" alt=""> <span class="fs-4 fw-bold">Weed Detection</span>
               </a>
           </div>
@@ -14,16 +14,16 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active fs-5" aria-current="page" href="{% url 'index' %}">Home</a>
+                <a class="nav-link active fs-5" aria-current="page" href="{% url 'detection:index' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fs-5" href="{% url 'prediction' %}">Prediction</a>
+                <a class="nav-link fs-5" href="{% url 'detection:prediction' %}">Prediction</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fs-5" href="{% url 'about' %}">About</a>
+                <a class="nav-link fs-5" href="{% url 'detection:about' %}">About</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fs-5" href="{% url 'contact' %}">Contact us</a>
+                <a class="nav-link fs-5" href="{% url 'detection:contact' %}">Contact us</a>
               </li>
             </ul>
           </div>
