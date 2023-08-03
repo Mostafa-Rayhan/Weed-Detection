@@ -40,34 +40,34 @@ def get_dataset2(ds ,train_split=0.0,val_split=0.0 , test_split=1.0,shuffle=True
   return test_ds
 
 
-dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
-    "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\given",
-    seed=1,
-    shuffle=True,
-    image_size =(IMAGE_SIZE,IMAGE_SIZE),
-    batch_size =BATCH_SIZE
-  )
+# dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
+#     "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\static\\given",
+#     seed=1,
+#     shuffle=True,
+#     image_size =(IMAGE_SIZE,IMAGE_SIZE),
+#     batch_size =BATCH_SIZE
+#   )
   
-def data_prepro():
+def data_prepro(dataset_given):
   
-  dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
-    "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\given",
-    seed=1,
-    shuffle=True,
-    image_size =(IMAGE_SIZE,IMAGE_SIZE),
-    batch_size =BATCH_SIZE
-    )
+  # dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
+  #   "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\static\\given",
+  #   seed=1,
+  #   shuffle=True,
+  #   image_size =(IMAGE_SIZE,IMAGE_SIZE),
+  #   batch_size =BATCH_SIZE
+  #   )
   
   test_ds = get_dataset2(dataset_given)
 
   return test_ds
 
-test_ds = data_prepro()
+# test_ds = data_prepro()
 
-test_ds = test_ds.cache().shuffle(1000).prefetch(buffer_size =tf.data.AUTOTUNE)
+# test_ds = test_ds.cache().shuffle(1000).prefetch(buffer_size =tf.data.AUTOTUNE)
 
-class_names2 =dataset_given.class_names
-class_names2
+# class_names2 =dataset_given.class_names
+# class_names2
 
 
 def index(request):
@@ -79,7 +79,7 @@ def about(request):
 def contact(request):
     return render(request, 'contact_us.html')
 
-def image_compress_save(image, img_name):
+def image_compress_save(image, img_name,weed_or_crop):
     im = Image.open(image)
     im = im.convert('RGB')
     im_io = BytesIO()
@@ -88,7 +88,7 @@ def image_compress_save(image, img_name):
     print(settings.STATIC_URL)
     print(settings.STATIC_ROOT)
     print(settings.STATICFILES_DIRS[0])
-    FileSystemStorage(location=os.path.join(settings.STATICFILES_DIRS[0], 'given','usr')).save(img_name,
+    FileSystemStorage(location=os.path.join(settings.STATICFILES_DIRS[0], 'given',weed_or_crop)).save(img_name,
                                                                                                     compressed_image)
 
 
@@ -98,12 +98,31 @@ def prediction(request):
             return render(request, 'Prediction.html')
     
     if request.method == 'POST':
-        upload_image = request.FILES['upload_image']
+        # upload_image = request.FILES['upload_image']
 
-        image_compress_save(upload_image,"img_example.jpeg")
+        # print("hi", upload_image)
 
+        weed_or_crop = request.POST['val']
 
+        print(weed_or_crop)
 
+        image_compress_save(request.FILES['upload_image'],'img_example.jpg',weed_or_crop)
+
+        print(2)
+
+        dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
+            "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\static\\given",
+            seed=1,
+            shuffle=True,
+            image_size =(IMAGE_SIZE,IMAGE_SIZE),
+            batch_size =BATCH_SIZE
+            
+          )
+        
+        test_ds = data_prepro(dataset_given)
+        test_ds = test_ds.cache().shuffle(1000).prefetch(buffer_size =tf.data.AUTOTUNE)
+        class_names2 =dataset_given.class_names
+        class_names2
         actual_class2,predicted_class2,confidence2 = output(test_ds,class_names2)
 
         context = {

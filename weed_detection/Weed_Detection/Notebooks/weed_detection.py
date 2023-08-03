@@ -99,7 +99,7 @@ len(test_ds)
 def data_prepro():
   
   dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
-    "Weed_Detection\given",
+    "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\static\\given",
     seed=1,
     shuffle=True,
     image_size =(IMAGE_SIZE,IMAGE_SIZE),
