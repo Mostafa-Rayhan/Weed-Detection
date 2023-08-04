@@ -3,7 +3,6 @@
 <section class="my-5 pt-lg-5">
   <p class="text-center">Machine learning project</p>
   <h2 class="text-center">Weed Detection</h2>
-  <p class="text-primary fw-semibold text-center">Actual : {{actual}}</p>
   <p class="text-primary fw-semibold text-center">Predicted : {{predict}}</p>
   <p class="text-primary fw-semibold text-center">Confidence : {{conf}}</p>
 
@@ -15,11 +14,11 @@
     {% csrf_token %}
 
     <div class="mb-3 w-75 mx-auto">
-      <select name="val">
+      {% comment %} <select name="val">
         <option value="weed">weed</option>
         <option value="crop">crop</option>
       </select>
-      <br><br>
+      <br><br> {% endcomment %}
       <label for="formFileMultiple" class="form-label fs-5"
         >Enter Picture</label
       >

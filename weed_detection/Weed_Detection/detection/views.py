@@ -79,7 +79,7 @@ def about(request):
 def contact(request):
     return render(request, 'contact_us.html')
 
-def image_compress_save(image, img_name,weed_or_crop):
+def image_compress_save(image, img_name):
     im = Image.open(image)
     im = im.convert('RGB')
     im_io = BytesIO()
@@ -88,7 +88,7 @@ def image_compress_save(image, img_name,weed_or_crop):
     print(settings.STATIC_URL)
     print(settings.STATIC_ROOT)
     print(settings.STATICFILES_DIRS[0])
-    FileSystemStorage(location=os.path.join(settings.STATICFILES_DIRS[0], 'given',weed_or_crop)).save(img_name,
+    FileSystemStorage(location=os.path.join(settings.STATICFILES_DIRS[0], 'given','user')).save(img_name,
                                                                                                     compressed_image)
 
 
@@ -98,17 +98,10 @@ def prediction(request):
             return render(request, 'Prediction.html')
     
     if request.method == 'POST':
-        # upload_image = request.FILES['upload_image']
 
-        # print("hi", upload_image)
 
-        weed_or_crop = request.POST['val']
+        image_compress_save(request.FILES['upload_image'],'img_example.jpg')
 
-        print(weed_or_crop)
-
-        image_compress_save(request.FILES['upload_image'],'img_example.jpg',weed_or_crop)
-
-        print(2)
 
         dataset_given = tf.keras.preprocessing.image_dataset_from_directory(
             "C:\\Users\\DCL\\Desktop\\polash\\Weed-Detection\\weed_detection\\Weed_Detection\\static\\given",
